@@ -14,10 +14,18 @@ webgazer
     //console.log(data, timestamp);
     if (data == null || lookDirection === "STOP") return;
 
-    if (data.x < LEFT_CUTOFF && lookDirection !== "LEFT") {
+    if (
+      data.x < LEFT_CUTOFF &&
+      lookDirection !== "LEFT" &&
+      lookDirection !== "RESET"
+    ) {
       startLookTime = timestamp;
       lookDirection = "LEFT";
-    } else if (data.x > RIGHT_CUTOFF && lookDirection !== "RIGHT") {
+    } else if (
+      data.x > RIGHT_CUTOFF &&
+      lookDirection !== "RIGHT" &&
+      lookDirection !== "RESET"
+    ) {
       startLookTime = timestamp;
       lookDirection = "RIGHT";
     } else if (data.x >= LEFT_CUTOFF && data.x <= RIGHT_CUTOFF) {
@@ -38,7 +46,7 @@ webgazer
         nextImageElement.classList.remove("next");
         imageElement = nextImageElement;
         nextImageElement = getNewImage(true);
-        lookDirection("RESET");
+        lookDirection = "RESET";
       }, 200);
     }
   })
